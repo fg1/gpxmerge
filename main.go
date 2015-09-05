@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/xml"
 	"flag"
 	"log"
 	"os"
@@ -30,9 +29,7 @@ func main() {
 		}
 		defer fi.Close()
 
-		rdr := xml.NewDecoder(fi)
-		err = rdr.Decode(&inp_gpxs[i])
-		if err != nil {
+		if err := inp_gpxs[i].Read(fi); err != nil {
 			log.Fatal(err)
 		}
 		ntrkpts += len(inp_gpxs[i].Track.TrackSegment)
@@ -57,10 +54,5 @@ func main() {
 		log.Fatal(err)
 	}
 	defer fo.Close()
-
-	fo.Write([]byte(xml.Header))
-
-	enc := xml.NewEncoder(fo)
-	enc.Indent("", "  ")
-	enc.Encode(out_gpx)
+	out_gpx.Write(fo)
 }
