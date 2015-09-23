@@ -7,9 +7,10 @@ import (
 )
 
 type TrackPoint struct {
-	Lat float64 `xml:"lat,attr"`
-	Lon float64 `xml:"lon,attr"`
-	Ele float64 `xml:"ele"`
+	Lat  float64 `xml:"lat,attr"`
+	Lon  float64 `xml:"lon,attr"`
+	Ele  float64 `xml:"ele"`
+	Time string  `xml:"time"`
 }
 
 type Track struct {
